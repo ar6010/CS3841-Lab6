@@ -8,6 +8,16 @@
  * This can be used to simulate 'private' variables in c
  */
 static int allocation_count = 0;
+static int *endPointer;
+
+//linked list structure
+static struct memoryBlock {
+
+    int *nextBlockAddress;
+};
+
+static struct memoryBlock *first;
+static struct memoryBlock *last;
 
 /* TODO Define additional structure definitions here */
 
@@ -21,6 +31,11 @@ static int allocation_count = 0;
 void mmInit(void* start, int size) 
 {
 	allocation_count = 0;
+    endPointer = start + size;
+    //Initialize first block
+    first->nextBlockAddress = start;
+    first->nextBlockAddress = start;
+    last->nextBlockAddress = first->nextBlockAddress + 1;
 
 	// TODO more initialization needed
 }
@@ -52,6 +67,21 @@ void mmDestroy()
  */
 void* mymalloc_ff(int nbytes)
 {
+    if(first == NULL){
+        printf("Must initialize Memory Manager");
+        return NULL;
+    }
+
+    if(last->nextBlockAddress + nbytes < endPointer){
+
+        struct memoryBlock *nextBlock = last;
+        last->nextBlockAddress = nextBlock->nextBlockAddress + 1;
+
+
+
+    }
+
+
 	return NULL;
 }
 
