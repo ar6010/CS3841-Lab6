@@ -12,9 +12,11 @@ static int *endPointer;
 
 //linked list structure
 static struct memoryBlock {
-
-    int *nextBlockAddress;
-};
+    void *blockAddress;
+    struct memoryBlock *next;
+    int isFree;
+    size_t size;
+} memoryBlock;
 
 static struct memoryBlock *first;
 static struct memoryBlock *last;
@@ -33,10 +35,11 @@ void mmInit(void* start, int size)
 	allocation_count = 0;
     endPointer = start + size;
     //Initialize first block
-    first->nextBlockAddress = start;
-    first->nextBlockAddress = start;
-    last->nextBlockAddress = first->nextBlockAddress + 1;
-
+    first->blockAddress = start;
+    first->next = NULL;
+    first->isFree = 1;
+    first->size = size;
+    last = first;
 	// TODO more initialization needed
 }
 
@@ -71,17 +74,22 @@ void* mymalloc_ff(int nbytes)
         printf("Must initialize Memory Manager");
         return NULL;
     }
-
-    if(last->nextBlockAddress + nbytes < endPointer){
-
-        struct memoryBlock *nextBlock = last;
-        last->nextBlockAddress = nextBlock->nextBlockAddress + 1;
-
-
-
+    struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
+    newBlock->size = nbytes;
+    struct memoryBlock *tempBlock;
+    tempBlock = first;
+    while(tempBlock != NULL){
+        if(newBlock->size <= tempBlock->size){
+            break;
+        }
+        tempBlock = tempBlock->next;
     }
-
-
+    if(tempBlock != NULL){
+        tempBlock->next->blockAddress = tempBlock->blockAddress + newBlock->size;
+        // TODO
+    } else{
+        printf("Can't allocate block of this size");
+    }
 	return NULL;
 }
 
@@ -95,6 +103,8 @@ void* mymalloc_ff(int nbytes)
  */
 void* mymalloc_wf(int nbytes)
 {
+    struct memoryBlock * index = first;
+    while()
 	return NULL;
 }
 
@@ -125,7 +135,18 @@ void* mymalloc_bf(int nbytes)
  */
 void myfree(void* ptr)
 {
-
+    if(first == NULL){
+        printf("Must initialize Memory Manager");
+    } else if (ptr == NULL){
+        printf("Block is not allocated");
+    } else {
+        struct memoryBlock *tempBlock;
+        tempBlock = first;
+        while(tempBlock->blockAddress != ptr){
+            tempBlock = tempBlock->next;
+        }
+        tempBlock->isFree = 1;
+    }
 }
 
 /* get_allocated_space()
@@ -146,7 +167,16 @@ int get_allocated_space()
  */
 int get_remaining_space()
 {
-	return 0;
+    int sum = 0;
+    struct memoryBlock *tempBlock;
+    tempBlock = first;
+    while(tempBlock != NULL){
+        if(tempBlock->isFree == 1){
+            sum = sum + tempBlock->size;
+        }
+        tempBlock = tempBlock->next;
+    }
+	return sum;
 }
 
 /* get_fragment_count()
@@ -156,7 +186,16 @@ int get_remaining_space()
  */
 int get_fragment_count()
 {
-	return 0;
+    int sum = 0;
+    struct memoryBlock *tempBlock;
+    tempBlock = first;
+    while(tempBlock != NULL){
+        if(tempBlock->isFree == 1){
+            sum = sum + 1;
+        }
+        tempBlock = tempBlock->next;
+    }
+    return sum;
 }
 
 /* get_mymalloc_count()
