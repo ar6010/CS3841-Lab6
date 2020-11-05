@@ -85,8 +85,18 @@ void* mymalloc_ff(int nbytes)
         tempBlock = tempBlock->next;
     }
     if(tempBlock != NULL){
-        tempBlock->next->blockAddress = tempBlock->blockAddress + newBlock->size;
-        // TODO
+        newBlock->blockAddress = tempBlock->;
+        tempBlock->size -= newBlock->size;
+        if(first == NULL){
+            first = newBlock;
+        }
+        else{
+            last = first;
+            while(last->next != NULL){
+                last = last->next;
+            }
+            last->next = newBlock;
+        }
     } else{
         printf("Can't allocate block of this size");
     }
