@@ -113,6 +113,7 @@ void* mymalloc_ff(int nbytes)
             }
             last->next = newBlock;
         }
+        allocation_count++;
         return newBlock->blockAddress;
     } else{
         printf("Can't allocate block of this size");
@@ -156,6 +157,7 @@ void* mymalloc_wf(int nbytes)
         newBlock->blockAddress = last->blockAddress;
         newBlock->next = newBlock->blockAddress + nbytes;
         last->blockAddress = newBlock->next;
+        allocation_count++;
         return newBlock->blockAddress;
     }
 
