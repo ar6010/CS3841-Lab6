@@ -103,9 +103,37 @@ void* mymalloc_ff(int nbytes)
  */
 void* mymalloc_wf(int nbytes)
 {
-    struct memoryBlock * index = first;
-    while()
-	return NULL;
+    if(first == NULL){
+        printf("Must initialize Memory Manager");
+        return NULL;
+    }
+
+    //Find largest memory block
+    int max = 0;
+    void* maxAddress = 0;
+    struct memoryBlock *temp = first;
+    while(temp->next != NULL){
+        if(temp->size > max && temp->isFree == 0){
+            max = temp->size;
+            maxAddress = temp->blockAddress;
+        }
+        *temp = *temp->next;
+    }
+
+    //Return address of largest memory block if it is larger than nbytes, else create a new block
+    if(max > (last->next - *endPointer) && max >= nbytes){
+        return maxAddress;
+    } else if(nbytes < (last->next - *endPointer)){
+        struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
+        newBlock->size = nbytes;
+        newBlock->blockAddress = last->blockAddress;
+        newBlock->next = newBlock->blockAddress + nbytes;
+        last->blockAddress = newBlock->next;
+        return newBlock->blockAddress;
+    }
+
+
+    return NULL;
 }
 
 /* mymalloc_bf()
