@@ -30,7 +30,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96068e79-48a8-406d-812a-3fd1162020ff" name="Default Changelist" comment="Adding to the linked list structure. Messing with mymalloc_ff, myfree, and init">
+    <list default="true" id="96068e79-48a8-406d-812a-3fd1162020ff" name="Default Changelist" comment="Finished First Fit mostly">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/memory_manager.c" beforeDir="false" afterPath="$PROJECT_DIR$/memory_manager.c" afterDir="false" />
     </list>
@@ -48,7 +48,7 @@
     </projectState>
   </component>
   <component name="Git.Pull.Settings">
-    <option name="BRANCH" value="chris" />
+    <option name="BRANCH" value="dev" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -122,7 +122,7 @@
       <workItem from="1603730773637" duration="602000" />
       <workItem from="1603737617688" duration="1213000" />
       <workItem from="1603843940204" duration="3447000" />
-      <workItem from="1604535740787" duration="6020000" />
+      <workItem from="1604535740787" duration="13886000" />
     </task>
     <task id="LOCAL-00001" summary="Adding to the linked list structure. Messing with mymalloc_ff, myfree, and init">
       <created>1603586387299</created>
@@ -131,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603586387299</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Finished First Fit mostly">
+      <created>1604550908225</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1604550908225</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,7 +158,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Adding to the linked list structure. Messing with mymalloc_ff, myfree, and init" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding to the linked list structure. Messing with mymalloc_ff, myfree, and init" />
+    <MESSAGE value="Finished First Fit mostly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished First Fit mostly" />
   </component>
   <component name="WindowStateProjectService">
     <state x="454" y="146" width="1084" height="710" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604536235867">
@@ -162,10 +170,11 @@
       <screen x="72" y="27" width="1848" height="923" />
     </state>
     <state x="317" y="246" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.923@72.27.1848.923" timestamp="1604536233518" />
-    <state x="591" y="224" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1604540809096">
+    <state x="591" y="224" width="528" height="530" key="Vcs.Push.Dialog.v2" timestamp="1604561797762">
       <screen x="72" y="27" width="1848" height="923" />
     </state>
-    <state x="591" y="224" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.923@72.27.1848.923" timestamp="1604540809096" />
+    <state x="591" y="224" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.923@72.27.1848.923" timestamp="1604561797762" />
+    <state x="321" y="222" width="528" height="530" key="Vcs.Push.Dialog.v2/72.27.886.913@72.27.886.913" timestamp="1604550872046" />
     <state x="410" y="399" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604550815764">
       <screen x="72" y="27" width="886" height="913" />
     </state>

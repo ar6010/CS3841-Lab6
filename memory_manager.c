@@ -57,7 +57,22 @@ void mmInit(void* start, int size)
  */ 
 void mmDestroy()
 {
-
+    //all allocated spaces become invalid
+    // future allocation attempts fail
+    // future frees result in segmentation faults
+    if(first == NULL){
+        printf("Must initialize Memory Manager");
+    } else{
+        struct memoryBlock *tempBlock;
+        tempBlock = first;
+        struct memoryBlock *currentBlock;
+        currentBlock = tempBlock;
+        while(currentBlock != NULL){
+            currentBlock = tempBlock->next;
+            free(tempBlock);
+            tempBlock = currentBlock;
+        }
+    }
 }
 
 /* mymalloc_ff()
@@ -76,6 +91,7 @@ void* mymalloc_ff(int nbytes)
     }
     struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
     newBlock->size = nbytes;
+    newBlock->isFree = 0;
     struct memoryBlock *tempBlock;
     tempBlock = first;
     while(tempBlock != NULL){
@@ -85,7 +101,7 @@ void* mymalloc_ff(int nbytes)
         tempBlock = tempBlock->next;
     }
     if(tempBlock != NULL){
-        newBlock->blockAddress = tempBlock->;
+        newBlock->blockAddress = tempBlock->blockAddress;
         tempBlock->size -= newBlock->size;
         if(first == NULL){
             first = newBlock;
@@ -97,6 +113,7 @@ void* mymalloc_ff(int nbytes)
             }
             last->next = newBlock;
         }
+        return newBlock->blockAddress;
     } else{
         printf("Can't allocate block of this size");
     }
@@ -194,7 +211,16 @@ void myfree(void* ptr)
  */
 int get_allocated_space()
 {
-	return 0;
+    int sum = 0;
+    struct memoryBlock *tempBlock;
+    tempBlock = first;
+    while(tempBlock != NULL){
+        if(tempBlock->isFree == 0){
+            sum = sum + tempBlock->size;
+        }
+        tempBlock = tempBlock->next;
+    }
+    return sum;
 }
 
 /* get_remaining_space()
