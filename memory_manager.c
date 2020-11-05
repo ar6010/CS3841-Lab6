@@ -29,10 +29,10 @@ static struct memoryBlock *last;
  *         Parameters: start - the start of the memory to manage
  *                     size - the size of the memory to manage
  *         Returns: void
- */ 
-void mmInit(void* start, int size) 
+ */
+void mmInit(void* start, int size)
 {
-	allocation_count = 0;
+    allocation_count = 0;
     endPointer = start + size;
     //Initialize first block
     first->blockAddress = start;
@@ -40,7 +40,7 @@ void mmInit(void* start, int size)
     first->isFree = 1;
     first->size = size;
     last = first;
-	// TODO more initialization needed
+    // TODO more initialization needed
 }
 
 /* mmDestroy()
@@ -54,7 +54,7 @@ void mmInit(void* start, int size)
  *           and frees
  *         Parameters: None
  *         Returns: void
- */ 
+ */
 void mmDestroy()
 {
     //all allocated spaces become invalid
@@ -76,7 +76,7 @@ void mmDestroy()
 }
 
 /* mymalloc_ff()
- *     Requests a block of memory be allocated using 
+ *     Requests a block of memory be allocated using
  *         first fit placement algorithm
  *     The memory manager must be initialized (mmInit)
  *         for this call to succeed
@@ -113,16 +113,15 @@ void* mymalloc_ff(int nbytes)
             }
             last->next = newBlock;
         }
-        allocation_count++;
         return newBlock->blockAddress;
     } else{
         printf("Can't allocate block of this size");
     }
-	return NULL;
+    return NULL;
 }
 
 /* mymalloc_wf()
- *     Requests a block of memory be allocated using 
+ *     Requests a block of memory be allocated using
  *         worst fit placement algorithm
  *     The memory manager must be initialized (mmInit)
  *         for this call to succeed
@@ -157,7 +156,6 @@ void* mymalloc_wf(int nbytes)
         newBlock->blockAddress = last->blockAddress;
         newBlock->next = newBlock->blockAddress + nbytes;
         last->blockAddress = newBlock->next;
-        allocation_count++;
         return newBlock->blockAddress;
     }
 
@@ -166,7 +164,7 @@ void* mymalloc_wf(int nbytes)
 }
 
 /* mymalloc_bf()
- *     Requests a block of memory be allocated using 
+ *     Requests a block of memory be allocated using
  *         best fit placement algorithm
  *     The memory manager must be initialized (mmInit)
  *         for this call to succeed
@@ -175,7 +173,40 @@ void* mymalloc_wf(int nbytes)
  */
 void* mymalloc_bf(int nbytes)
 {
-	return NULL;
+    if(first == NULL){
+        printf("Must initialize Memory Manager");
+        return NULL;
+    }
+
+    //Find best memory block using a calculated fit value
+    int fit = nbytes;
+    void* fitAddress;
+    struct memoryBlock *temp = first;
+    while(temp->next != NULL){
+        if(temp->size >= nbytes && temp->isFree == 0){
+            int fitValue = temp->size - nbytes;
+            if(fitValue >= 0 && fitValue < fit){
+                fitAddress = temp->blockAddress;
+            }
+
+        }
+        *temp = *temp->next;
+    }
+
+    //Return address of largest memory block if it is larger than nbytes, else create a new block
+    if(fitAddress != NULL){
+        return fitAddress;
+    } else if(nbytes < (last->next - *endPointer)){
+        struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
+        newBlock->size = nbytes;
+        newBlock->blockAddress = last->blockAddress;
+        newBlock->next = newBlock->blockAddress + nbytes;
+        last->blockAddress = newBlock->next;
+        return newBlock->blockAddress;
+    }
+
+
+    return NULL;
 }
 
 /* myfree()
@@ -209,7 +240,7 @@ void myfree(void* ptr)
 /* get_allocated_space()
  *     Retrieve the current amount of space allocated by the memory manager (in bytes)
  *         Parameters: None
- *         Returns: int - the current number of allocated bytes 
+ *         Returns: int - the current number of allocated bytes
  */
 int get_allocated_space()
 {
@@ -229,7 +260,7 @@ int get_allocated_space()
  *     Retrieve the current amount of available space in the memory manager (in bytes)
  *         (e.g. sum of all free blocks)
  *         Parameters: None
- *         Returns: int - the current number of free bytes 
+ *         Returns: int - the current number of free bytes
  */
 int get_remaining_space()
 {
@@ -242,7 +273,7 @@ int get_remaining_space()
         }
         tempBlock = tempBlock->next;
     }
-	return sum;
+    return sum;
 }
 
 /* get_fragment_count()
@@ -271,5 +302,5 @@ int get_fragment_count()
  */
 int get_mymalloc_count()
 {
-	return allocation_count;
+    return allocation_count;
 }
