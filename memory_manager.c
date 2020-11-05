@@ -91,10 +91,11 @@ void* mymalloc_ff(int nbytes)
     struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
     newBlock->size = nbytes;
     newBlock->isFree = 0;
+    newBlock->next = NULL;
     struct memoryBlock *tempBlock;
     tempBlock = first;
     while(tempBlock != NULL){
-        if(newBlock->size <= tempBlock->size){
+        if((newBlock->size <= tempBlock->size) && (tempBlock->isFree)){
             break;
         }
         tempBlock = tempBlock->next;
@@ -102,16 +103,13 @@ void* mymalloc_ff(int nbytes)
     if(tempBlock != NULL){
         newBlock->blockAddress = tempBlock->blockAddress;
         tempBlock->size -= newBlock->size;
-        if(first == NULL){
-            first = newBlock;
+        tempBlock->blockAddress = tempBlock->blockAddress + nbytes;
+        newBlock->next = tempBlock;
+        last = first;
+        while(last->next->isFree != 1){
+            last = last->next;
         }
-        else{
-            last = first;
-            while(last->next != NULL){
-                last = last->next;
-            }
-            last->next = newBlock;
-        }
+        last->next = newBlock;
         allocation_count++;
         return newBlock->blockAddress;
     } else{
