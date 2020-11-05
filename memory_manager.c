@@ -235,7 +235,12 @@ void myfree(void* ptr)
         while(tempBlock->blockAddress != ptr){
             tempBlock = tempBlock->next;
         }
-        tempBlock->isFree = 1;
+        if(tempBlock->isFree){
+            printf("Block is not allocated (double free)");
+        }
+        else if(tempBlock != NULL){
+            tempBlock->isFree = 1;
+        }
     }
 }
 

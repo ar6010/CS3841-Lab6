@@ -30,9 +30,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96068e79-48a8-406d-812a-3fd1162020ff" name="Default Changelist" comment="Allocation Count">
-      <change beforePath="$PROJECT_DIR$/memory_manager.c" beforeDir="false" afterPath="$PROJECT_DIR$/memory_manager.c" afterDir="false" />
-    </list>
+    <list default="true" id="96068e79-48a8-406d-812a-3fd1162020ff" name="Default Changelist" comment="Allocation Count" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -121,7 +119,7 @@
       <workItem from="1603730773637" duration="602000" />
       <workItem from="1603737617688" duration="1213000" />
       <workItem from="1603843940204" duration="3447000" />
-      <workItem from="1604535740787" duration="17990000" />
+      <workItem from="1604535740787" duration="23455000" />
     </task>
     <task id="LOCAL-00001" summary="Adding to the linked list structure. Messing with mymalloc_ff, myfree, and init">
       <created>1603586387299</created>
@@ -165,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604611681901</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Allocation Count">
+      <created>1604618396975</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1604618396975</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,11 +211,11 @@
       <screen x="72" y="27" width="1848" height="923" />
     </state>
     <state x="627" y="251" width="728" height="482" key="MultipleFileMergeDialog/72.27.1848.923@72.27.1848.923" timestamp="1604605336559" />
-    <state x="591" y="224" width="528" height="530" key="Vcs.Push.Dialog.v2" timestamp="1604611687436">
-      <screen x="72" y="27" width="1848" height="923" />
+    <state x="321" y="222" width="528" height="530" key="Vcs.Push.Dialog.v2" timestamp="1604618409758">
+      <screen x="72" y="27" width="886" height="913" />
     </state>
-    <state x="591" y="224" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.923@72.27.1848.923" timestamp="1604611687436" />
-    <state x="321" y="222" width="528" height="530" key="Vcs.Push.Dialog.v2/72.27.886.913@72.27.886.913" timestamp="1604550872046" />
+    <state x="591" y="224" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.923@72.27.1848.923" timestamp="1604611705345" />
+    <state x="321" y="222" width="528" height="530" key="Vcs.Push.Dialog.v2/72.27.886.913@72.27.886.913" timestamp="1604618409758" />
     <state x="777" y="403" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604605322200">
       <screen x="72" y="27" width="1848" height="923" />
     </state>
@@ -220,5 +225,9 @@
       <screen x="72" y="27" width="1848" height="958" />
     </state>
     <state x="274" y="331" width="1126" height="217" key="makefile.clean.confirm.dialog/72.27.1848.958@72.27.1848.958" timestamp="1603389853705" />
+    <state x="178" y="224" width="672" height="678" key="search.everywhere.popup" timestamp="1604616760235">
+      <screen x="72" y="27" width="886" height="913" />
+    </state>
+    <state x="178" y="224" width="672" height="678" key="search.everywhere.popup/72.27.886.913@72.27.886.913" timestamp="1604616760235" />
   </component>
 </project>
