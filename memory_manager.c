@@ -64,13 +64,12 @@ void mmDestroy()
         printf("Must initialize Memory Manager");
     } else{
         struct memoryBlock *tempBlock;
-        tempBlock = first;
         struct memoryBlock *currentBlock;
-        currentBlock = tempBlock;
-        while(currentBlock != NULL){
-            currentBlock = tempBlock->next;
+        tempBlock = first;
+        while(tempBlock != NULL){
+            currentBlock = tempBlock;
             free(tempBlock);
-            tempBlock = currentBlock;
+            tempBlock = currentBlock->next;
         }
     }
 }
@@ -153,6 +152,7 @@ void* mymalloc_wf(int nbytes)
     } else if(nbytes < (last->next - *endPointer)){
         struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
         newBlock->size = nbytes;
+        newBlock->isFree = 0;
         newBlock->blockAddress = last->blockAddress;
         newBlock->next = newBlock->blockAddress + nbytes;
         last->blockAddress = newBlock->next;
@@ -199,6 +199,7 @@ void* mymalloc_bf(int nbytes)
     } else if(nbytes < (last->next - *endPointer)){
         struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
         newBlock->size = nbytes;
+        newBlock->isFree = 0;
         newBlock->blockAddress = last->blockAddress;
         newBlock->next = newBlock->blockAddress + nbytes;
         last->blockAddress = newBlock->next;
