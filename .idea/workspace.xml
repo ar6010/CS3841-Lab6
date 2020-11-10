@@ -30,7 +30,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96068e79-48a8-406d-812a-3fd1162020ff" name="Default Changelist" comment="Allocation Count" />
+    <list default="true" id="96068e79-48a8-406d-812a-3fd1162020ff" name="Default Changelist" comment="Fixes to myFree and firstFit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/memory_manager.c" beforeDir="false" afterPath="$PROJECT_DIR$/memory_manager.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -119,7 +122,7 @@
       <workItem from="1603730773637" duration="602000" />
       <workItem from="1603737617688" duration="1213000" />
       <workItem from="1603843940204" duration="3447000" />
-      <workItem from="1604535740787" duration="23455000" />
+      <workItem from="1604535740787" duration="25942000" />
     </task>
     <task id="LOCAL-00001" summary="Adding to the linked list structure. Messing with mymalloc_ff, myfree, and init">
       <created>1603586387299</created>
@@ -170,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604618396975</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fixes to myFree and firstFit">
+      <created>1604618675910</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1604618675910</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,7 +202,8 @@
     <MESSAGE value="Adding to the linked list structure. Messing with mymalloc_ff, myfree, and init" />
     <MESSAGE value="Finished First Fit mostly" />
     <MESSAGE value="Allocation Count" />
-    <option name="LAST_COMMIT_MESSAGE" value="Allocation Count" />
+    <MESSAGE value="Fixes to myFree and firstFit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes to myFree and firstFit" />
   </component>
   <component name="WindowStateProjectService">
     <state x="454" y="146" width="1084" height="710" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604536235867">
@@ -211,11 +222,11 @@
       <screen x="72" y="27" width="1848" height="923" />
     </state>
     <state x="627" y="251" width="728" height="482" key="MultipleFileMergeDialog/72.27.1848.923@72.27.1848.923" timestamp="1604605336559" />
-    <state x="321" y="222" width="528" height="530" key="Vcs.Push.Dialog.v2" timestamp="1604618409758">
+    <state x="321" y="222" width="528" height="530" key="Vcs.Push.Dialog.v2" timestamp="1604618803562">
       <screen x="72" y="27" width="886" height="913" />
     </state>
     <state x="591" y="224" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.923@72.27.1848.923" timestamp="1604611705345" />
-    <state x="321" y="222" width="528" height="530" key="Vcs.Push.Dialog.v2/72.27.886.913@72.27.886.913" timestamp="1604618409758" />
+    <state x="321" y="222" width="528" height="530" key="Vcs.Push.Dialog.v2/72.27.886.913@72.27.886.913" timestamp="1604618803562" />
     <state x="777" y="403" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604605322200">
       <screen x="72" y="27" width="1848" height="923" />
     </state>

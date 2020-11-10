@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <semaphore.h>
 #include "memory_manager.h"
 
 /* 
@@ -21,6 +22,8 @@ static struct memoryBlock {
 static struct memoryBlock *first;
 static struct memoryBlock *last;
 
+sem_t memorySem;
+
 /* TODO Define additional structure definitions here */
 
 /* mmInit()
@@ -41,6 +44,7 @@ void mmInit(void* start, int size)
     first->size = size;
     last = first;
     // TODO more initialization needed
+    sem_init(&memorySem, 0, 1);
 }
 
 /* mmDestroy()
@@ -88,6 +92,7 @@ void* mymalloc_ff(int nbytes)
         printf("Must initialize Memory Manager");
         return NULL;
     }
+    sem_wait(&memorySem);
     struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
     newBlock->size = nbytes;
     newBlock->isFree = 0;
@@ -111,9 +116,11 @@ void* mymalloc_ff(int nbytes)
         }
         last->next = newBlock;
         allocation_count++;
+        sem_post(&memorySem);
         return newBlock->blockAddress;
     } else{
         printf("Can't allocate block of this size");
+        sem_post(&memorySem);
     }
     return NULL;
 }
@@ -132,7 +139,7 @@ void* mymalloc_wf(int nbytes)
         printf("Must initialize Memory Manager");
         return NULL;
     }
-
+    sem_wait(&memorySem);
     //Find largest memory block
     int max = 0;
     void* maxAddress = 0;
@@ -147,6 +154,7 @@ void* mymalloc_wf(int nbytes)
 
     //Return address of largest memory block if it is larger than nbytes, else create a new block
     if(max > (last->next - *endPointer) && max >= nbytes){
+        sem_post(&memorySem);
         return maxAddress;
     } else if(nbytes < (last->next - *endPointer)){
         struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
@@ -156,10 +164,10 @@ void* mymalloc_wf(int nbytes)
         newBlock->next = newBlock->blockAddress + nbytes;
         last->blockAddress = newBlock->next;
         allocation_count++;
+        sem_post(&memorySem);
         return newBlock->blockAddress;
     }
-
-
+    sem_post(&memorySem);
     return NULL;
 }
 
@@ -177,7 +185,7 @@ void* mymalloc_bf(int nbytes)
         printf("Must initialize Memory Manager");
         return NULL;
     }
-
+    sem_wait(&memorySem);
     //Find best memory block using a calculated fit value
     int fit = nbytes;
     void* fitAddress;
@@ -188,13 +196,13 @@ void* mymalloc_bf(int nbytes)
             if(fitValue >= 0 && fitValue < fit){
                 fitAddress = temp->blockAddress;
             }
-
         }
         *temp = *temp->next;
     }
 
     //Return address of largest memory block if it is larger than nbytes, else create a new block
     if(fitAddress != NULL){
+        sem_post(&memorySem);
         return fitAddress;
     } else if(nbytes < (last->next - *endPointer)){
         struct memoryBlock *newBlock = (struct memoryBlock*)malloc(sizeof(struct memoryBlock));
@@ -204,10 +212,10 @@ void* mymalloc_bf(int nbytes)
         newBlock->next = newBlock->blockAddress + nbytes;
         last->blockAddress = newBlock->next;
         allocation_count++;
+        sem_post(&memorySem);
         return newBlock->blockAddress;
     }
-
-
+    sem_post(&memorySem);
     return NULL;
 }
 
@@ -230,6 +238,7 @@ void myfree(void* ptr)
     } else if (ptr == NULL){
         printf("Block is not allocated");
     } else {
+        sem_wait(&memorySem);
         struct memoryBlock *tempBlock;
         tempBlock = first;
         while(tempBlock->blockAddress != ptr){
@@ -241,6 +250,7 @@ void myfree(void* ptr)
         else if(tempBlock != NULL){
             tempBlock->isFree = 1;
         }
+        sem_post(&memorySem);
     }
 }
 
@@ -251,6 +261,7 @@ void myfree(void* ptr)
  */
 int get_allocated_space()
 {
+    sem_wait(&memorySem);
     int sum = 0;
     struct memoryBlock *tempBlock;
     tempBlock = first;
@@ -260,6 +271,7 @@ int get_allocated_space()
         }
         tempBlock = tempBlock->next;
     }
+    sem_post(&memorySem);
     return sum;
 }
 
@@ -271,6 +283,7 @@ int get_allocated_space()
  */
 int get_remaining_space()
 {
+    sem_wait(&memorySem);
     int sum = 0;
     struct memoryBlock *tempBlock;
     tempBlock = first;
@@ -280,6 +293,7 @@ int get_remaining_space()
         }
         tempBlock = tempBlock->next;
     }
+    sem_post(&memorySem);
     return sum;
 }
 
@@ -290,6 +304,7 @@ int get_remaining_space()
  */
 int get_fragment_count()
 {
+    sem_wait(&memorySem);
     int sum = 0;
     struct memoryBlock *tempBlock;
     tempBlock = first;
@@ -299,6 +314,7 @@ int get_fragment_count()
         }
         tempBlock = tempBlock->next;
     }
+    sem_post(&memorySem);
     return sum;
 }
 
